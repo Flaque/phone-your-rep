@@ -1,5 +1,6 @@
 import vobject
 import csv
+import re
 
 INDICES = {
     'state' : 0,
@@ -20,15 +21,31 @@ INDICES = {
     'photo' : 15
 }
 
+PARTY = {
+    'R' : 'Republican',
+    'D' : 'Democrat',
+    'I' : 'Independent'
+}
+
+FOLDER = 'vcards'
+
 def write(name, text):
-    with open(name, 'w') as vCardFile:
+    with open(FOLDER + '/' + name, 'w') as vCardFile:
         vCardFile.write(text)
+
+def isEmail(text):
+    if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", text):
+        return True
+    else:
+        return False
 
 with open('senators.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile)
+    reader.next() #Pop off first row
     for row in reader:
         v_card = vobject.vCard()
 
+        # Name
         first, last = row[INDICES['first_name']], row[INDICES['last_name']]
 
         v_card.add('n') # 'n' is "Name" in V_card land
@@ -37,10 +54,28 @@ with open('senators.csv', 'rb') as csvfile:
         v_card.add('fn') # 'fn' is "Full Name"
         v_card.fn.value = first + ' ' + last
 
-        v_card.add('email')
-        v_card.email.value = row[INDICES['email']]
-        v_card.email.type = 'INTERNET'
+        # Email / URL
+        email = row[INDICES['email']]
+        if isEmail(email):
+            v_card.add('email')
+            v_card.email.value = email
+            v_card.email.type = 'INTERNET'
+        else:
+            v_card.add('url')
+            v_card.url.value = email
+
+        # Phone Number
+        district_phone = row[INDICES['district_tel']]
+        v_card.add('tel')
+        v_card.tel.value = district_phone
+        v_card.tel.type_param = 'District Office'
+
+        # Party
+        role = PARTY[row[INDICES['party']]]
+        v_card.add('role')
+        v_card.role.value = role
+
 
         # Write to a file
         text = v_card.serialize()
-        write(first + '_' + last + '.csv', text)
+        write(first + '_' + last + '.vcf', text)

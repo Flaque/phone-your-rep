@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Rob Portman
+N:Portman;Rob;;;
+ROLE:Republican
+TEL;TYPE=District Office:(614) 469-6774
+URL:https://www.portman.senate.gov/public/index.cfm/contact?p=contact-form
+END:VCARD

@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:John Hoeven
+N:Hoeven;John;;;
+ROLE:Republican
+TEL;TYPE=District Office:(701) 250-4618
+URL:http://www.hoeven.senate.gov/public/index.cfm/email-the-senator
+END:VCARD

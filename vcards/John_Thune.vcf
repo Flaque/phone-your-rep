@@ -1,0 +1,8 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:John Thune
+N:Thune;John;;;
+ROLE:Republican
+TEL;TYPE=District Office:(605) 348-7551
+URL:http://www.thune.senate.gov/public/index.cfm/contact
+END:VCARD
