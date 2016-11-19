@@ -1,7 +1,0 @@
-BEGIN:VCARD
-VERSION:3.0
-FN:First Name Last Name
-N:Last Name;First Name;;;
-TEL;TYPE=District Office:District Tel #
-URL:Email
-END:VCARD

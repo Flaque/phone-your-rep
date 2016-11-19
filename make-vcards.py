@@ -1,4 +1,5 @@
-import vobject
+import vobject # pip install vobject
+import usaddress # pip install usaddress
 import csv
 import re
 
@@ -63,18 +64,40 @@ with open('senators.csv', 'rb') as csvfile:
         else:
             v_card.add('url')
             v_card.url.value = email
+            v_card.url.type_param = 'Contact'
 
         # Phone Number
+        # See http://stackoverflow.com/questions/13552836/creating-a-multiple-phone-vcard-using-vobject
+        # For adding multiple telephone numbers
         district_phone = row[INDICES['district_tel']]
-        v_card.add('tel')
-        v_card.tel.value = district_phone
-        v_card.tel.type_param = 'District Office'
+        tel = v_card.add('tel')
+        tel.value = district_phone
+        tel.type_param = 'District Office'
+
+        dc_phone = row[INDICES['dc_tel']]
+        tel = v_card.add('tel')
+        tel.value = district_phone
+        tel.type_param = 'DC Office'
 
         # Party
-        role = PARTY[row[INDICES['party']]]
-        v_card.add('role')
-        v_card.role.value = role
+        note = PARTY[row[INDICES['party']]]
+        v_card.add('note')
+        v_card.note.value = note
 
+        # Website
+        website = row[INDICES['website']]
+        url = v_card.add('url')
+        url.value = website
+        url.type_param = 'Website'
+
+        # Addresses
+        # street = row[INDICES['district_address_1']]
+        # extended = row[INDICES['district_address_2']]
+        # region = row[INDICES['district_address_3']]
+        #
+        # adr = v_card.add('adr')
+        # adr.value = vobject.vcard.Address(street='hi')
+        # adr.type_param = 'DC Office Address'
 
         # Write to a file
         text = v_card.serialize()
