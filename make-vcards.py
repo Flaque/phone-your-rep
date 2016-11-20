@@ -2,6 +2,7 @@ import vobject # pip install vobject
 import usaddress # pip install usaddress
 import csv
 import re
+import uuid
 
 INDICES = {
     'state' : 0,
@@ -106,6 +107,10 @@ with open('senators.csv', 'rb') as csvfile:
         adr = v_card.add('adr')
         adr.value = getAddress(row)
         adr.type_param = 'District Office Address'
+
+        # UID
+        _uuid = v_card.add('uid')
+        _uuid.value = 'urn:uuid:' + str(uuid.uuid4())
 
         # Write to a file
         text = v_card.serialize()
