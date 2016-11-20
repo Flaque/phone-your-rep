@@ -87,11 +87,6 @@ with open('senators.csv', 'rb') as csvfile:
         tel.value = district_phone
         tel.type_param = 'District Office'
 
-        dc_phone = row[INDICES['dc_tel']]
-        tel = v_card.add('tel')
-        tel.value = district_phone
-        tel.type_param = 'DC Office'
-
         # Party
         note = PARTY[row[INDICES['party']]]
         v_card.add('note')
