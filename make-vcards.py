@@ -40,6 +40,18 @@ def isEmail(text):
     else:
         return False
 
+
+def getAddress(row):
+    """ Gets a vobject Address object from a row in the dataset """
+    street = row[INDICES['district_address_1']]
+    line_2 = row[INDICES['district_address_2']]
+    line_3 = row[INDICES['district_address_3']]
+
+    unparsed_address = street + ' ' + line_2 + ' ' + line_3
+
+    return vobject.vcard.Address(street=unparsed_address)
+
+
 with open('senators.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile)
     reader.next() #Pop off first row
@@ -91,13 +103,9 @@ with open('senators.csv', 'rb') as csvfile:
         url.type_param = 'Website'
 
         # Addresses
-        # street = row[INDICES['district_address_1']]
-        # extended = row[INDICES['district_address_2']]
-        # region = row[INDICES['district_address_3']]
-        #
-        # adr = v_card.add('adr')
-        # adr.value = vobject.vcard.Address(street='hi')
-        # adr.type_param = 'DC Office Address'
+        adr = v_card.add('adr')
+        adr.value = getAddress(row)
+        adr.type_param = 'District Office Address'
 
         # Write to a file
         text = v_card.serialize()
