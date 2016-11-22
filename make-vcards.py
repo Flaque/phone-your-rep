@@ -52,61 +52,66 @@ def getAddress(row):
 
     return vobject.vcard.Address(street=unparsed_address)
 
+def makeVCard(row):
+    v_card = vobject.vCard()
 
-with open('senators.csv', 'rb') as csvfile:
-    reader = csv.reader(csvfile)
-    reader.next() #Pop off first row
-    for row in reader:
-        v_card = vobject.vCard()
+    # Name
+    first, last = row[INDICES['first_name']], row[INDICES['last_name']]
 
-        # Name
-        first, last = row[INDICES['first_name']], row[INDICES['last_name']]
+    v_card.add('n') # 'n' is "Name" in V_card land
+    v_card.n.value = vobject.vcard.Name(family=last, given=first)
 
-        v_card.add('n') # 'n' is "Name" in V_card land
-        v_card.n.value = vobject.vcard.Name(family=last, given=first)
+    v_card.add('fn') # 'fn' is "Full Name"
+    v_card.fn.value = first + ' ' + last
 
-        v_card.add('fn') # 'fn' is "Full Name"
-        v_card.fn.value = first + ' ' + last
+    # Email / URL
+    email = row[INDICES['email']]
+    if isEmail(email):
+        v_card.add('email')
+        v_card.email.value = email
+        v_card.email.type = 'INTERNET'
+    else:
+        v_card.add('url')
+        v_card.url.value = email
+        v_card.url.type_param = 'Contact'
 
-        # Email / URL
-        email = row[INDICES['email']]
-        if isEmail(email):
-            v_card.add('email')
-            v_card.email.value = email
-            v_card.email.type = 'INTERNET'
-        else:
-            v_card.add('url')
-            v_card.url.value = email
-            v_card.url.type_param = 'Contact'
+    # Phone Number
+    # See http://stackoverflow.com/questions/13552836/creating-a-multiple-phone-vcard-using-vobject
+    # For adding multiple telephone numbers
+    district_phone = row[INDICES['district_tel']]
+    tel = v_card.add('tel')
+    tel.value = district_phone
+    tel.type_param = 'District Office'
 
-        # Phone Number
-        # See http://stackoverflow.com/questions/13552836/creating-a-multiple-phone-vcard-using-vobject
-        # For adding multiple telephone numbers
-        district_phone = row[INDICES['district_tel']]
-        tel = v_card.add('tel')
-        tel.value = district_phone
-        tel.type_param = 'District Office'
+    # Party
+    note = PARTY[row[INDICES['party']]]
+    v_card.add('note')
+    v_card.note.value = note
 
-        # Party
-        note = PARTY[row[INDICES['party']]]
-        v_card.add('note')
-        v_card.note.value = note
+    # Website
+    website = row[INDICES['website']]
+    url = v_card.add('url')
+    url.value = website
+    url.type_param = 'Website'
 
-        # Website
-        website = row[INDICES['website']]
-        url = v_card.add('url')
-        url.value = website
-        url.type_param = 'Website'
+    # Addresses
+    adr = v_card.add('adr')
+    adr.value = getAddress(row)
+    adr.type_param = 'District Office Address'
 
-        # Addresses
-        adr = v_card.add('adr')
-        adr.value = getAddress(row)
-        adr.type_param = 'District Office Address'
+    # UID
+    _uuid = v_card.add('uid')
+    _uuid.value = 'urn:uuid:' + str(uuid.uuid4())
 
-        # UID
-        _uuid = v_card.add('uid')
-        _uuid.value = 'urn:uuid:' + str(uuid.uuid4())
+    # Write to a file
+    return first, last, v_card.serialize()
 
-        # Write to a file
-        text = v_card.serialize()
-        write(first + '_' + last + '.vcf', text)
+def main():
+    with open('senators.csv', 'rb') as csvfile:
+        reader = csv.reader(csvfile)
+        reader.next() #Pop off first row
+        for row in reader:
+            first_name, last_name, text = makeVCard(row)
+            write(first_name + '_' + last_name + '.vcf', text)
+
+main()
