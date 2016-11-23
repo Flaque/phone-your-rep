@@ -35,22 +35,40 @@ def write(name, text):
     with open(FOLDER + '/' + name, 'w') as vCardFile:
         vCardFile.write(text)
 
+def writeDictionaryToCSV(name, dictionary):
+    with open(name, 'w') as csvFile:
+        writer = csv.writer(csvFile)
+        for key, value in dictionary.iteritems():
+            writer.writerow([key, value])
+
 def isEmail(text):
     if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", text):
         return True
     else:
         return False
 
-
-def getAddress(row):
-    """ Gets a vobject Address object from a row in the dataset """
+def getUnparsedAddress(row):
     street = row[INDICES['district_address_1']]
     line_2 = row[INDICES['district_address_2']]
     line_3 = row[INDICES['district_address_3']]
 
-    unparsed_address = street + ' ' + line_2 + ' ' + line_3
+    return street + ' ' + line_2 + ' ' + line_3
 
-    return vobject.vcard.Address(street=unparsed_address)
+def getFromUSAddress(address, key):
+    """ from the list of tuples given by usadress, get key """
+    for value, _key in address:
+        if _key == key:
+            return value
+    return None
+
+def getZip(row):
+    unparsed_address = getUnparsedAddress(row)
+    tuples = usaddress.parse(unparsed_address)
+    return getFromUSAddress(tuples, 'ZipCode')
+
+def getAddress(row):
+    """ Gets a vobject Address object from a row in the dataset """
+    return vobject.vcard.Address(street=getUnparsedAddress(row))
 
 def makeVCard(row):
     v_card = vobject.vCard()
@@ -106,12 +124,32 @@ def makeVCard(row):
     # Write to a file
     return first, last, v_card.serialize()
 
+def createVCardFiles(reader):
+    for row in reader:
+        first_name, last_name, text = makeVCard(row)
+        write(first_name + '_' + last_name + '.vcf', text)
+
+def createZipCodeCSV(reader):
+    repsByZip = {}
+
+    for row in reader:
+        first_name, last_name, text = makeVCard(row)
+        zipCode = getZip(row)
+
+        try:
+            repsByZip[zipCode] += text
+        except KeyError:
+            repsByZip[zipCode] = text
+
+    writeDictionaryToCSV('reps.csv', repsByZip)
+
+
 def main():
     with open('senators.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile)
         reader.next() #Pop off first row
-        for row in reader:
-            first_name, last_name, text = makeVCard(row)
-            write(first_name + '_' + last_name + '.vcf', text)
+
+        #createVCardFiles(reader) #uncomment if you want to create Vcard files
+        createZipCodeCSV(reader)
 
 main()
