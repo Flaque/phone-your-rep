@@ -1,3 +1,5 @@
+'use strict';
+
 var ENDPOINT = ''
 
 
@@ -46,5 +48,5 @@ function clicked() {
 }
 
 (function() {
-  
+
 })();

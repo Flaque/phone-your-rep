@@ -2,23 +2,11 @@
 Put yo' rep in yo' phone!
 
 ## Overview
-This script builds [vcards](https://en.wikipedia.org/wiki/VCard) using
-the [vobject](https://github.com/eventable/vobject) python library.
+This is the widget that allows users
+to download [vcards](https://en.wikipedia.org/wiki/VCard).
 
 ## Setup
-
-The script at the moment expects there to be a `vcards` folder in the
-project. So run:
-
-`mkdir vcards`
-
-You'll also need the dependencies, which at the moment are `vobject`
-and `usadress`.
-
-```
-pip install vobject
-pip install usadress
-```
+Run `npm install`.
 
 ## Relevant links:
 

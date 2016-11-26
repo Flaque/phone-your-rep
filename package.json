@@ -1,0 +1,23 @@
+{
+  "name": "phoneyourrep",
+  "version": "1.0.0",
+  "description": "Put yo' rep in yo' phone!",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flaque/phone-your-rep.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Flaque/phone-your-rep/issues"
+  },
+  "homepage": "https://github.com/Flaque/phone-your-rep#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  }
+}

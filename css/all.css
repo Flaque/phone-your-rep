@@ -1,0 +1,71 @@
+body {
+  background: white;
+}
+
+body #phone-your-rep {
+  margin: auto;
+  top: 50px;
+  position: relative;
+}
+
+#phone-your-rep {
+  width: 500px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border: 1.1px solid #e7e7e7;
+  font-family: Helvetica;
+}
+
+#phone-your-rep .header {
+  border-bottom: 1.1px solid #d3d3d3;
+  padding: 5px 25px;
+  color: #282828;
+}
+
+#phone-your-rep .header h2, #phone-your-rep .header h3 {
+  font-weight: 100;
+}
+
+#phone-your-rep .header h3 {
+  font-size: 1em;
+}
+
+#phone-your-rep .content {
+  padding: 25px;
+}
+
+#phone-your-rep .content input[type='number'] {
+  height: 30px;
+  line-height: 30px;
+  border-radius: 3px;
+  border: 1px solid #e7e7e7;
+  font-size: 1em;
+  font-weight: 100;
+  padding-left: 15px;
+  float: left;
+  width: 74%;
+  margin-right: 1%;
+}
+
+#phone-your-rep .content button {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 30px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #FFF;
+  background-color: #00ABED;
+}
+
+#phone-your-rep .footer {
+  padding: 25px;
+}
