@@ -1,6 +1,7 @@
 'use strict';
 
-var ENDPOINT = ''
+// var ENDPOINT = 'http://localhost:3000/reps'
+var ENDPOINT = 'http://phone-your-rep-api.heroku.com/reps'
 
 
 /**
@@ -28,11 +29,12 @@ function createURLString(base, data) {
  */
 function sendHTTP(baseURL, data, onLoad, onError) {
   var request = new XMLHttpRequest();
+  var url = createURLString(baseURL, data);
+
+  request.open("GET", url);
   request.addEventListener("load", onLoad);
   request.addEventListener("error", onError);
-
-  var url = createURLString(baseURL, data)
-  request.open("GET", url);
+  request.send();
 }
 
 /**
@@ -43,8 +45,43 @@ function getInputValue() {
   return document.getElementById('pyr-input').value
 }
 
-function clicked() {
+function success() {
+  console.log("success");
+  var response = JSON.parse(this.responseText);
 
+  if (this.status >= 200 && this.status < 400 && response) {
+    document.getElementById('pyr-query').innerText = response.zipcode;
+    document.getElementById('pyr-name').innerText = response.name;
+    document.getElementById('pyr-phone').innerText = response.phone;
+    document.getElementById('pyr-phone-link').href = "tel:" + response.phone;
+    document.getElementById('pyr-result').style = "display: block;";
+    document.getElementById('pyr-no-result').style = "display: none;";
+
+
+  } else {
+    // We reached our target server, but it returned an error
+    document.getElementById('pyr-error').style = "display: none;";
+    document.getElementById('pyr-not-found').style = "display: block;";
+    document.getElementById('pyr-no-result').style = "display: block;";
+
+    console.log("Did not find it.");
+  }
+
+}
+
+function failure() {
+  console.log("Failure :(");
+  document.getElementById('pyr-error').style = "display: block;";
+  document.getElementById('pyr-not-found').style = "display: none;";
+  document.getElementById('pyr-no-result').style = "display: block;";
+
+}
+
+function clicked() {
+  console.log("clicked");
+  var zipinput = getInputValue();
+  var data = { zipcode: zipinput };
+  sendHTTP(ENDPOINT, data, success, failure);
 }
 
 (function() {
