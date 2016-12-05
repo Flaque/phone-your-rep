@@ -1,5 +1,5 @@
 # phone-your-rep
-Put yo' rep in yo' phone!
+Put yo' rep in yo' phone! http://Flaque.github.io/phone-your-rep
 
 ## Overview
 This is the widget that allows users
