@@ -1,6 +1,6 @@
 'use strict';
 
-var ENDPOINT = 'http://localhost:3000/reps'
+var ENDPOINT = 'http://localhost:3000/zipcodes'
 // var ENDPOINT = 'https://phone-your-rep-api.herokuapp.com/reps'
 
 
