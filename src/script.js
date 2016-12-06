@@ -52,10 +52,13 @@ function success() {
   if (this.status >= 200 && this.status < 400 && response) {
     document.getElementById('pyr-query').innerText = response.district;
     document.getElementById('pyr-name').innerText = response.name_and_party;
-    document.getElementById('pyr-phone').innerText = response.dc_telephone;
+    document.getElementById('pyr-phone').innerText = response.district_telephone;
     document.getElementById('pyr-phone-link').href = "tel:" + response.dc_telephone;
     document.getElementById('pyr-email').innerText = response.email;
     document.getElementById('pyr-email-link').href = response.email;
+    document.getElementById('pyr-address-1').innerText = response.address_1;
+    document.getElementById('pyr-address-2').innerText = response.address_2;
+    document.getElementById('pyr-address-3').innerText = response.address_3;
     document.getElementById('pyr-result').style = "display: block;";
     document.getElementById('pyr-no-result').style = "display: none;";
 
