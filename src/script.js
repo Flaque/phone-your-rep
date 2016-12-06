@@ -56,6 +56,8 @@ function success() {
     document.getElementById('pyr-phone-link').href = "tel:" + response.dc_telephone;
     document.getElementById('pyr-email').innerText = response.email;
     document.getElementById('pyr-email-link').href = response.email;
+    document.getElementById('pyr-website').innerText = response.website;
+    document.getElementById('pyr-website-link').href = response.website;
     document.getElementById('pyr-address-1').innerText = response.address_1;
     document.getElementById('pyr-address-2').innerText = response.address_2;
     document.getElementById('pyr-address-3').innerText = response.address_3;
