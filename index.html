@@ -12,8 +12,20 @@
         <h3>Get 'em in your phone. </h2>
       </div>
       <div class='content'>
-        <input id='pyr-input' type='number' placeholder="Enter your zipcode">
+        <input id='pyr-input' type='number' placeholder="Enter your 5-digit zipcode">
         <button onclick='clicked()'> Go! </button>
+      </div>
+
+      <div id="pyr-result" style="display: none;">
+        <h2>Result for <span id="pyr-query"></span></h2>
+        <p><strong>Name</strong>: <span id="pyr-name"></span>
+        <br><strong>Phone number</strong>: <a id="pyr-phone-link"><span id="pyr-phone"></span></a>
+        <br><strong>Email</strong>: <a id="pyr-email-link" target="_blank"><span id="pyr-email"></span></a>
+      </div>
+
+      <div id="pyr-no-result" style="display: none;">
+        <div id="pyr-error" style="display: none;"> Something terrible happened in the code. :( </div>
+        <div id="pyr-not-found" style="display: none;"> No result found. :( </div>
       </div>
     </div>
 

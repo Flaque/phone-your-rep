@@ -13,6 +13,7 @@ gulp.task('sass', function() {
 // Runs the 'sass' compile task on change of .scss files
 gulp.task('sass:watch', function() {
   gulp.watch('./sass/**/*.scss', ['sass'])
+  gulp.watch('./sass/*.scss', ['sass'])
 })
 
 gulp.task('default', function() {
