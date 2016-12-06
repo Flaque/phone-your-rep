@@ -51,9 +51,9 @@ function success() {
 
   if (this.status >= 200 && this.status < 400 && response) {
     document.getElementById('pyr-query').innerText = response.zipcode;
-    document.getElementById('pyr-name').innerText = response.name;
-    document.getElementById('pyr-phone').innerText = response.phone;
-    document.getElementById('pyr-phone-link').href = "tel:" + response.phone;
+    document.getElementById('pyr-name').innerText = response.member_full;
+    document.getElementById('pyr-phone').innerText = response.dc_tel;
+    document.getElementById('pyr-phone-link').href = "tel:" + response.dc_tel;
     document.getElementById('pyr-result').style = "display: block;";
     document.getElementById('pyr-no-result').style = "display: none;";
 
@@ -80,7 +80,7 @@ function failure() {
 function clicked() {
   console.log("clicked");
   var zipinput = getInputValue();
-  var data = { zipcode: zipinput };
+  var data = { zip: zipinput };
   sendHTTP(ENDPOINT, data, success, failure);
 }
 
