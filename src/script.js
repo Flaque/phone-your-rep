@@ -1,7 +1,7 @@
 'use strict';
 
-var ENDPOINT = 'http://localhost:3000/zipcodes' // development
-// var ENDPOINT = 'https://aqueous-anchorage-20771.herokuapp.com/zipcodes' // production
+// var ENDPOINT = 'http://localhost:3000/zipcodes' // development
+var ENDPOINT = 'https://aqueous-anchorage-20771.herokuapp.com/zipcodes' // production
 
 
 /**
