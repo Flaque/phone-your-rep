@@ -64,4 +64,11 @@ body {
   .footer {
     padding: 25px;
   }
+
+  #pyr-result, #pyr-no-result {
+    padding: 25px;
+    border-top: 1.1px solid #d3d3d3;
+
+    h2 { font-weight: 100; }
+  }
 }
