@@ -50,10 +50,12 @@ function success() {
   var response = JSON.parse(this.responseText);
 
   if (this.status >= 200 && this.status < 400 && response) {
-    document.getElementById('pyr-query').innerText = response.state;
-    document.getElementById('pyr-name').innerText = response.member_full;
-    document.getElementById('pyr-phone').innerText = response.dc_tel;
-    document.getElementById('pyr-phone-link').href = "tel:" + response.dc_tel;
+    document.getElementById('pyr-query').innerText = response.district;
+    document.getElementById('pyr-name').innerText = response.name_and_party;
+    document.getElementById('pyr-phone').innerText = response.dc_telephone;
+    document.getElementById('pyr-phone-link').href = "tel:" + response.dc_telephone;
+    document.getElementById('pyr-email').innerText = response.email;
+    document.getElementById('pyr-email-link').href = response.email;
     document.getElementById('pyr-result').style = "display: block;";
     document.getElementById('pyr-no-result').style = "display: none;";
 
