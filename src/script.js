@@ -50,7 +50,7 @@ function success() {
   var response = JSON.parse(this.responseText);
 
   if (this.status >= 200 && this.status < 400 && response) {
-    document.getElementById('pyr-query').innerText = response.zipcode;
+    document.getElementById('pyr-query').innerText = response.state;
     document.getElementById('pyr-name').innerText = response.member_full;
     document.getElementById('pyr-phone').innerText = response.dc_tel;
     document.getElementById('pyr-phone-link').href = "tel:" + response.dc_tel;
