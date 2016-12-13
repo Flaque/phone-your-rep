@@ -33,7 +33,7 @@ body #phone-your-rep {
   padding: 25px;
 }
 
-#phone-your-rep .content input[type='number'] {
+#phone-your-rep .content input[type='text'] {
   height: 30px;
   line-height: 30px;
   border-radius: 3px;
